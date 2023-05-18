@@ -9,24 +9,22 @@ messages = [
      "content": "You are a helpful AI assistant."}, 
 ]
 
-def chatbot(input):
-    if input:
+def chat(user_input):
+    if user_input:
         messages.append({"role": "user", "content": input})
-        chat = openai.ChatCompletion.create(
+        response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo", messages=messages
         )
-        reply = chat.choices[0].message.content
+        reply = response.choices[0].message.content
         messages.append({"role": "assistant", "content": reply})
         return reply
 
-inputs = gr.inputs.Textbox(lines=7, label="Chat with AI")
-outputs = gr.outputs.Textbox(label="Reply")
+inputs = gr.inputs.Textbox(label="User input")
+outputs = gr.outputs.Textbox(label="Response")
 
 gr.Interface(
-    fn=chatbot, 
+    fn=chat, 
     inputs=inputs, 
     outputs=outputs, 
-    title="AI Chatbot",
-    description="Ask anything you want",
-    theme="compact"
+    title="ChatGPT Demo",
     ).launch(share=True)
