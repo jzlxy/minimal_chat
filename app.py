@@ -11,7 +11,7 @@ messages = [
 
 def chat(user_input):
     if user_input:
-        messages.append({"role": "user", "content": input})
+        messages.append({"role": "user", "content": user_input})
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo", messages=messages
         )
